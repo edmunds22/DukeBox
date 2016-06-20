@@ -1,0 +1,19 @@
+{
+"albumInfo": [
+  {
+    "artist" : "Artist 6",
+    "title" : "album title test2",
+    "trackCount" : 7,
+	"tracks" : [
+		{
+			"title" : "track 1 title",
+			"length" : 2.32
+		},
+		{
+			"title" : "trackk2",
+			"length" : 3.09
+		}
+	]
+  }
+]
+}

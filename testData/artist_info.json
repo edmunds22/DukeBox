@@ -1,0 +1,43 @@
+{
+"artistInfo": 
+  {
+    "name" : "Artist 6",
+    "albumCount" : 7,
+	"albums" : [
+		{
+			"title" : "testest",
+			"albumId" : 234234,
+			"year" : 2014,
+			"trackCount" : 11,
+			"tracks" : [
+				{
+					"title" : "track 1 title",
+					"length" : 2.32
+				},
+				{
+					"title" : "trackk2",
+					"length" : 3.09
+				}
+			]
+		},
+		{
+			"title" : "anderem",
+			"albumId" : 345345,
+			"year" : 2012,
+			"trackCount" : 6,
+			"tracks" : [
+				{
+					"title" : "track 52 title",
+					"length" : 2.32
+				},
+				{
+					"title" : "trac25252",
+					"length" : 3.09
+				}
+			]
+		}
+	],
+    "miscRecCount" : 24
+  }
+
+}

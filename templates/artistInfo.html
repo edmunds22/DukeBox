@@ -1,0 +1,36 @@
+
+		
+          <h1 class="page-header">{{artistName}}&nbsp;</h1>
+
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="album in artistAlbums">
+                  <td>
+					<a onclick="$(this).parent().children().eq(2).toggle();">></a>
+					
+					<b>{{album.title}}</b>
+					released: {{album.year}}
+					tracks: {{album.trackCount}}
+					
+					<ol style="display:none;">
+						<li ng-repeat="track in album.tracks">{{track.title}} <a ng-click="addToPlaylist('track', 234234, 'live');">Playlist</a></li>
+					</ol>
+				  
+				  
+				</td>
+                 
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+
+

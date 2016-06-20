@@ -1,0 +1,118 @@
+      <div class="row">
+
+        <div ng-controller="artistInfoCtrl">
+        <div class="col-sm-3"> 
+          <h1 class="page-header">Artists</h1>
+      
+      
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Artist</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in artists | orderBy:'artists' | filter:artistSearch">
+                  <td><a href="#/artist/{{x.art_id}}">></a></td>
+                  <!-- <td><a href="#/artist/{{x.art_id}}">></a></td> -->
+                  <td>{{x.name}} - {{ x.albums + ' Cd\'s, ' + x.misc_rec + ' Misc. Tracks' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      <input type="text" ng-model="artistSearch">
+      
+      
+      
+        </div>
+    
+
+        <div class="col-sm-6">
+          <h1 class="page-header">Info {{artistName}}</h1>
+
+
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="album in artistAlbums">
+                    <td>
+                      <a onclick="$(this).parent().children().eq(2).toggle();">></a>
+                      
+                      <b>{{album.title}}</b>
+                      released: {{album.year}} 
+                      tracks: {{album.trackCount}}
+                      
+                      <ol style="display:none;">
+                        <li ng-repeat="track in album.tracks">{{track.title}} <a ng-click="addToPlaylist('track', '{{track.id}}', 'live');" style="cursor: pointer;">Playlist</a></li>
+                      </ol>
+                       
+                      
+                    </td>
+                   
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+        </div>
+    
+        <div class="col-sm-3" ng-controller="playlistInfoCtrl">
+          <h1 class="page-header">Playlist</h1>
+      
+      <select ng-model="currentPlaylist" >
+      <option value="{{p.id}}" ng-repeat="p in playlists">{{p.title}}</option>
+      <option>Live</option>
+
+    </select> <a href="#" style="float:right;" ng-click="showDetails = ! showDetails" ng-show="!showDetails">New</a> 
+
+    <div id="newPlaylistForm" ng-show="showDetails">
+      <input type="text" style="float:left;clear:both;" ng-model="newPlaylistName" ng-required="true"/>
+      <a href="#" style="float:left;clear:both;" ng-click="showDetails = ! showDetails">Cancel</a>  
+      &nbsp;<a href="#" style="" ng-click="newPlaylist(newPlaylistName)">Save</a>
+    </div>
+      
+          <div class="table-responsive" style="clear:both;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Artist</th>
+                </tr>
+              </thead>
+              <tbody>
+        
+                <tr ng-repeat="z in livePlaylistTracks">
+                  <td><a href="#">P</a></td>
+                  <td>{{z.title}}</td>
+                  <td>ipsum</td>
+                </tr>
+        
+              </tbody>
+            </table>
+          </div>
+      
+      
+      
+      
+        </div>
+    
+    
+      </div>

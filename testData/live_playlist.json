@@ -1,0 +1,30 @@
+{
+"livePlaylist": 
+  {
+    "tracksNumber" : 3,
+	"tracks" : [
+		{
+			"trackId" : 32,
+			"albumId" : 13,	
+			"added" : "2015-01-01",
+			"title" : "live test track 1",
+			"plays" : 14
+		},
+		{
+			"trackId" : 12,
+			"albumId" : 23,	
+			"added" : "2015-03-05",
+			"title" : "live test track 2",
+			"plays" : 5
+		},
+		{
+			"trackId" : 2,
+			"albumId" : 54,	
+			"added" : "2015-06-25", 
+			"title" : "live test track 3",
+			"plays" : 12
+		}
+	]
+  }
+
+}

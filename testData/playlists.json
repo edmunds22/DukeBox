@@ -1,0 +1,38 @@
+{
+"playlists": [
+  {
+    "id" : 1,
+    "title" : "wills list",
+    "trackCount" : 17,
+	"tracks" : [
+		{
+			"title" : "track 1 title",
+			"length" : 2.32
+		},
+		{
+			"title" : "trackk2",
+			"length" : 3.19
+		}
+	]
+  },
+  {
+    "id" : 2,
+    "title" : "anderem list",
+    "trackCount" : 4,
+	"tracks" : [
+		{
+			"title" : "track 1 title",
+			"length" : 2.32
+		},
+		{
+			"title" : "trackk2",
+			"length" : 3.09
+		},
+		{
+			"title" : "tester track",
+			"length" : 3.59
+		}
+	]
+  }
+]
+}
