@@ -209,6 +209,141 @@ INSERT INTO `usr` VALUES (1,'edm');
 UNLOCK TABLES;
 COMMIT;
 
+
+
+--
+-- Playlist actions, adding, removing, adding &removing tracks
+--
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pls_action`(pv_action VARCHAR(10), pi_list_id INT, pi_usr INT, pi_trk_id INT, pv_txtarg varchar(255))
+BEGIN
+
+	DECLARE li_counter int;
+	SET li_counter = 0;
+
+    IF (pv_action = 'add_trk') THEN
+
+			 ###CHECK USER OWNS LIST###
+			select count(*) into li_counter from list where list_id = pi_list_id and usr_id = pi_usr;
+			IF (li_counter < 1) THEN
+				select 'list not found' as errormsg;
+			END IF;
+
+             insert into list_tracks (trk_id, list_id) values (pi_trk_id, pi_list_id);
+  
+	ELSEIF (pv_action = 'rm_trk') THEN
+
+			 ###CHECK USER OWNS LIST###
+			select count(*) into li_counter from list where list_id = pi_list_id and usr_id = pi_usr;
+			IF (li_counter < 1) THEN
+				select 'list not found' as errormsg;
+			END IF;
+
+			delete a
+			from list_tracks a
+			inner join list b on a.list_id = b.list_id
+			where a.trk_id = pi_trk_id 
+			and a.list_id = pi_list_id
+			and b.usr.id = pi_usr;
+
+	ELSEIF (pv_action = 'add_lst') THEN
+
+             insert into list (name, user_id) values (pv_txtarg, pi_usr);
+
+	ELSEIF (pv_action = 'rm_lst') THEN
+
+			 ###CHECK USER OWNS LIST###
+			select count(*) into li_counter from list where list_id = pi_list_id and usr_id = pi_usr;
+			IF (li_counter < 1) THEN
+				select 'list not found' as errormsg;
+			END IF;
+
+             delete from list where list_id = pi_list_id;
+
+	ELSE 
+             select 0 as test;
+
+    END IF;
+
+
+
+END$$
+DELIMITER ;
+
+
+
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: inline subselect of various artist related parameters, counts of tracks, etc
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `art_detail`(pi_art_id INT, detail_type VARCHAR(19)) RETURNS int(11)
+BEGIN
+
+    DECLARE li_output int;
+
+    SET li_output = 0;
+
+    IF (detail_type = 'misc_trk') THEN
+
+            SELECT count(*) INTO li_output FROM lib WHERE album is null and art_id = pi_art_id;
+  
+	 ELSEIF (detail_type = 'cds') THEN
+
+             SELECT count(*) INTO li_output FROM alb WHERE artist_id = pi_art_id;
+
+	ELSE 
+			SELECT 0 into li_output;
+
+    END IF;
+
+    RETURN li_output;
+
+RETURN 1;
+END
+
+
+
+
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: inline subselct on userID, returns plays of a certain track ID
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `trk_user_plays`(pi_trk_id int, pi_user_id int) RETURNS int(11)
+BEGIN
+
+    DECLARE li_plays int;
+
+    SET li_plays = 0;
+
+    IF (select count(*) from usr where usr_id = pi_user_id) > 0
+
+        THEN
+            SELECT plays INTO li_plays FROM lib_trk_plays WHERE trk_id = pi_trk_id;
+
+    END IF;
+
+    RETURN li_plays;
+
+END
+
+
+
+
+
+
+
+
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
